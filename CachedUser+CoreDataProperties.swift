@@ -55,6 +55,16 @@ extension CachedUser {
         id ?? UUID()
     }
     
+    var nameInitials: String? {
+        if let range = wrappedName.range(of: " ") {
+            let initials = wrappedName[range.upperBound...]
+            let lastNameInitial = String(initials.prefix(1))
+            let firstNameInitial = wrappedName.prefix(1)
+            return "\(firstNameInitial)\(lastNameInitial)"
+        }
+        return nil
+    }
+    
     public var friendsArray: [CachedFriend] {
         let set = friends as? Set<CachedFriend> ?? []
         return set.sorted {
